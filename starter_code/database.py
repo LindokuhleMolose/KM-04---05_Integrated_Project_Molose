@@ -61,25 +61,15 @@ def create_tables(conn: sqlite3.Connection) -> None:
     conn.commit()
 
 
-def insert_products(conn: sqlite3.Connection, products_df) -> None:
-    """
-    Insert every row of the cleaned products DataFrame into the
-    products table.
-    """
-
+def insert_products(conn, products_df):
     sql = """
-        INSERT INTO products
+        INSERT OR REPLACE INTO products
         (product_id, product_name, category, unit_price)
         VALUES (?, ?, ?, ?)
     """
 
     rows = [
-        (
-            row.product_id,
-            row.product_name,
-            row.category,
-            row.unit_price
-        )
+        (row.product_id, row.product_name, row.category, row.unit_price)
         for row in products_df.itertuples(index=False)
     ]
 
@@ -87,32 +77,24 @@ def insert_products(conn: sqlite3.Connection, products_df) -> None:
     conn.commit()
 
 
-def insert_sales(conn: sqlite3.Connection, sales_df) -> None:
-    """
-    Insert every row of the cleaned sales DataFrame into the sales table.
-    """
 
+def insert_sales(conn, sales_df):
     sql = """
-        INSERT INTO sales
+        INSERT OR REPLACE INTO sales
         (sale_id, product_id, quantity, sale_date,
          payment_method, customer_type)
         VALUES (?, ?, ?, ?, ?, ?)
     """
 
     rows = [
-        (
-            row.sale_id,
-            row.product_id,
-            row.quantity,
-            row.sale_date,
-            row.payment_method,
-            row.customer_type
-        )
+        (row.sale_id, row.product_id, row.quantity, row.sale_date,
+         row.payment_method, row.customer_type)
         for row in sales_df.itertuples(index=False)
     ]
 
     conn.executemany(sql, rows)
     conn.commit()
+
 
 
 # ---------------------------------------------------------------------
