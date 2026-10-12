@@ -124,8 +124,10 @@ def clean_sales(sales_df: "pd.DataFrame", valid_product_ids) -> "pd.DataFrame":
     cleaned["sale_date"] = pd.to_datetime(
     cleaned["sale_date"],
     format="mixed",
-    dayfirst=True,
-    errors="coerce"
+    errors="coerce",
+    dayfirst=True
+    
+    
 )
 
     # Remove rows with missing or unparseable dates
