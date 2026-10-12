@@ -303,3 +303,49 @@ I ran the program using `python main.py` from the `starter_code` folder. The pro
 5. Generating and saving the charts.
 
 The terminal confirmed that both chart files were saved successfully.
+
+## Task 6: Data Security
+
+### Objective
+
+The objective of Task 6 was to demonstrate basic data security by implementing password hashing and an access-control gate to restrict access to the sales reports.
+
+### Password Hashing and Access Control
+
+I implemented three functions in `starter_code/security.py`:
+
+1. `hash_password()` converts a password into a SHA-256 hash.
+2. `check_password()` compares the hash of an entered password with the stored hash.
+3. `login_gate()` allows up to three password attempts before denying access.
+
+I also activated the security gate in `main.py`. The program requires a correct password before processing and displaying the sales reports.
+
+For this learning project, the stored hash is defined in the code. In a real application, credentials should be stored and managed securely rather than hardcoded. SHA-256 alone is not recommended for real password storage; a password-specific hashing algorithm such as Argon2 or bcrypt is more suitable.
+
+### Reflection on the CIA Triad
+
+**1. Confidentiality**
+
+The login gate supports confidentiality by restricting access to the sales reports. Only someone who enters the correct password can continue to the reports. However, this basic gate is a demonstration and does not provide complete security for the database or files.
+
+**2. Integrity**
+
+The database helps support data integrity through primary keys, which prevent duplicate identifiers in a table. Foreign-key relationships can also help ensure that sales refer to valid products when foreign-key enforcement is enabled. Appropriate data types and validation help reduce invalid data.
+
+**3. Availability**
+
+If the project is stored only on my laptop, hardware failure, theft or accidental deletion could make the system unavailable. I recommend keeping regular backups of the project and database in a secure location, such as a separate drive or approved cloud storage.
+
+### Testing
+
+I tested the security functions using `test_security.py`.
+
+- Password hashing test: passed.
+- Correct password test: passed.
+- Incorrect password test: passed.
+
+The security gate was then activated in `main.py` to require authentication before the reports are processed.
+
+### Conclusion
+
+Task 6 demonstrated the importance of password hashing, access control and the CIA triad. It also showed that protecting a system involves confidentiality, integrity and availability, not just a password.
